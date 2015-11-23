@@ -8,6 +8,7 @@ Flash Proの拡張ソフト
 
 ### 対応バージョン <br />
  Flash Pro 4J (日本語版) Flash4.exe MD5:2FE277E46EE579BB07DE1EA7C1BD6481 SHA1:D731BBAD124C5C82BF6E1290E2704F34AD3E265A
+ ＊注意　出荷時期によってFlash4.exeのバイナリが異なっていると使えないかも。必ず事前にFlash4.exeのハッシュを確認してください。
 
 ### 使い方
  - FlashEx.exeとCPicker.dllをFlash4.exeのあるディレクトリ(C:\Program Files (x86)\Macromedia\Flash4Jなど)に置きます
