@@ -6,8 +6,11 @@ Flash Proの拡張ソフト
 <img src="https://raw.githubusercontent.com/devil-tamachan/FlashEx/master/flashex01.png">
 
 
+###ダウンロード<br />
+<a href="https://github.com/devil-tamachan/FlashEx/releases">https://github.com/devil-tamachan/FlashEx/releases</a>
+
 ### 対応バージョン <br />
- Flash Pro 4J (日本語版) Flash4.exe MD5:2FE277E46EE579BB07DE1EA7C1BD6481 SHA1:D731BBAD124C5C82BF6E1290E2704F34AD3E265A<br />
+ Flash Pro 4J Windows (日本語版) Flash4.exe MD5:2FE277E46EE579BB07DE1EA7C1BD6481 SHA1:D731BBAD124C5C82BF6E1290E2704F34AD3E265A<br />
  ＊注意　出荷時期によってFlash4.exeのバイナリが異なっていると使えないかも。必ず事前にFlash4.exeのハッシュを確認してください。
 
 ### 使い方
