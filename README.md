@@ -20,7 +20,7 @@ Flash Proの拡張ソフト
 使用ライブラリ
  - An HSV/RGBA colour picker [<a href="http://creativecommons.org/licenses/by-sa/2.5/deed.ja">CC (ASA 2.5)</a>] <a href="http://www.codeproject.com/Articles/9207/An-HSV-RGBA-colour-picker">http://www.codeproject.com/Articles/9207/An-HSV-RGBA-colour-picker</a>
  - ropguard (MIT License) <a href="https://code.google.com/p/ropguard/">https://code.google.com/p/ropguard/</a>
- - mariokonrad / crc [Copyright (c) 2013, Mario Konrad] (BSD) <a href="https://github.com/mariokonrad/crc">https://github.com/mariokonrad/crc</a>
+ - mariokonrad / crc (BSD - Copyright (c) 2013, Mario Konrad) <a href="https://github.com/mariokonrad/crc">https://github.com/mariokonrad/crc</a>
  
 ライセンス
  - CPicker.dllはCC (ASA 2.5)
