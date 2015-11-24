@@ -18,13 +18,13 @@ LRESULT CALLBACK HookWndProc(HWND hWnd, UINT uMsg, WPARAM wp, LPARAM lp)
     {
       cpicker = new CColourPicker(NULL, 255, 0, 0, 255, true);
 		  cpicker->CreatecolourPicker(CP_USE_ALPHA);
-      char buf[50];
+  /*    char buf[50];
       sprintf(buf, "CreatecolourPicker: hWnd=0x%08X", hWnd);
-    OutputDebugString(buf);
+    OutputDebugString(buf);*/
     }else {
-      char buf[50];
+      /*char buf[50];
       sprintf(buf, "WM_CREATE: hWnd=0x%08X", hWnd);
-    OutputDebugString(buf);
+    OutputDebugString(buf);*/
     }
     break;
   }
@@ -47,7 +47,6 @@ BOOL APIENTRY DllMain( HMODULE hModule,
   DWORD  ul_reason_for_call,
   LPVOID lpReserved)
 {
-    OutputDebugString("DllMain");
   switch (ul_reason_for_call)
   {
   case DLL_PROCESS_ATTACH:
