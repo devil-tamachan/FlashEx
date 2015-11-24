@@ -31,7 +31,18 @@ int _tmain(int argc, _TCHAR* argv[])
   filename++;
   strcpy(filename, "cpicker.dll");
 
-  CreateProcessWithDll("Flash4.exe", dllpath, true);
+  char *pCmdline = (char *)malloc(5000);
+  pCmdline[0] = NULL;
+  for(int i=0; i<argc; i++)
+  {
+    strcat(pCmdline, i==0?"Flash4.exe":argv[i]);
+    strcat(pCmdline, " ");
+  }
+  OutputDebugString(pCmdline);
+
+  CreateProcessWithDll(pCmdline, dllpath, true);
+
+  free(pCmdline);
 
   return 0;
 }
