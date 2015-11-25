@@ -33,9 +33,9 @@ int _tmain(int argc, _TCHAR* argv[])
     return 0;
   }
   filename++;
-  strcpy(filename, "cpicker.dll");
+  strcpy(filename, "Flash4.exe");
   
-  FILE *fp = fopen("Flash4.exe", "rb");
+  FILE *fp = fopen(dllpath, "rb");
   if(fp==NULL)return 0;
   fseek(fp, 0L, SEEK_END);
   s = ftell(fp);
@@ -52,6 +52,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	crcInit();
   crcExe = crcFast(buf, s);
   free(buf);
+
+  strcpy(filename, "cpicker.dll");
 
   if(crcExe!=0x0B4A/*Flash4J*/ && crcExe!=0xAA51/*Flash4J 2GB+*/)
   {
