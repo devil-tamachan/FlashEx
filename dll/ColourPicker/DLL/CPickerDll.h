@@ -48,6 +48,20 @@ struct PixelBuffer
 		HBITMAP hBmpBuffer;
 		void *lpBits;
 		int w,h;
+
+  public:
+    BOOL IsReCreate(int type, int x)
+    {
+      if(type==m_type && x==m_x)return FALSE;
+      return TRUE;
+    }
+    void SetCacheType(int type, int x)
+    {
+      m_type = type;
+      m_x = x;
+    }
+  private:
+    int m_type, m_x;
 	};
 
 class CColourPicker

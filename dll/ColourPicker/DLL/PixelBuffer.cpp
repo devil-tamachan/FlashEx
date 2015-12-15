@@ -4,6 +4,8 @@ PixelBuffer::PixelBuffer()
 	{
 	hBmpBuffer=NULL;
 	lpBits=NULL;
+  m_type = -1;
+  m_x = -1;
 	}
 
 void PixelBuffer::SetPixel(int x, int y, unsigned int color)

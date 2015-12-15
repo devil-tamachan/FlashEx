@@ -132,9 +132,13 @@ LRESULT CALLBACK ColourPickerDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 			// RED
 			if (IsDlgButtonChecked(hDlg, IDC_R) == BST_CHECKED)
 				{
-				for (int g=0; g<255; g++)
-					for (int b=0; b<255; b++)
-						pbuffer.SetPixel(g, b, RGB(red, g, b));
+          if(pbuffer.IsReCreate(IDC_R, red))
+          {
+            for (int g=0; g<255; g++)
+              for (int b=0; b<255; b++)
+                pbuffer.SetPixel(g, b, RGB(red, g, b));
+            pbuffer.SetCacheType(IDC_R, red);
+          }
 
 				pbuffer.Display(hcomp);
 
@@ -146,10 +150,14 @@ LRESULT CALLBACK ColourPickerDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 				}
 			// GREEN
 			else if (IsDlgButtonChecked(hDlg, IDC_G) == BST_CHECKED)
-				{
-				for (int r=0; r<255; r++)
-					for (int b=0; b<255; b++)
-						pbuffer.SetPixel(r, b, RGB(r, green, b));
+      {
+        if(pbuffer.IsReCreate(IDC_G, green))
+        {
+          for (int r=0; r<255; r++)
+            for (int b=0; b<255; b++)
+              pbuffer.SetPixel(r, b, RGB(r, green, b));
+          pbuffer.SetCacheType(IDC_G, green);
+        }
 				pbuffer.Display(hcomp);
 
 				// Draws circle
@@ -160,9 +168,13 @@ LRESULT CALLBACK ColourPickerDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 			// BLUE
 			else if (IsDlgButtonChecked(hDlg, IDC_B) == BST_CHECKED)
 				{
-				for (int g=0; g<255; g++)
-					for (int r=0; r<255; r++)
-						pbuffer.SetPixel(g, r, RGB(r, g, blue));
+          if(pbuffer.IsReCreate(IDC_B, blue))
+          {
+            for (int g=0; g<255; g++)
+              for (int r=0; r<255; r++)
+                pbuffer.SetPixel(g, r, RGB(r, g, blue));
+            pbuffer.SetCacheType(IDC_B, blue);
+          }
 				pbuffer.Display(hcomp);
                 
 				// Draws circle
@@ -183,22 +195,26 @@ LRESULT CALLBACK ColourPickerDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 				tempcol.h = (unsigned short) GetDlgItemInt(hDlg, IDC_HUE, NULL, false);
 				tempcol.s = (unsigned short) sat;
 				tempcol.v = (unsigned short) val;
+        
+        if(pbuffer.IsReCreate(IDC_H, tempcol.h))
+        {
+          for (int y=255; y>0; y--)
+          {
+            for (int x=0; x<255; x++)
+            {
+              tempcol.UpdateRGB();
+              pbuffer.SetPixel(x, y, RGB(tempcol.r, tempcol.g, tempcol.b));
+              sat += step;
+              tempcol.s = (unsigned short) sat;
+            }
 
-				for (int y=255; y>0; y--)
-				{
-					for (int x=0; x<255; x++)
-					{
-						tempcol.UpdateRGB();
-						pbuffer.SetPixel(x, y, RGB(tempcol.r, tempcol.g, tempcol.b));
-						sat += step;
-						tempcol.s = (unsigned short) sat;
-					}
-					
-					val += step;
-					sat = 0.0;
-					tempcol.v = (unsigned short) val;
-//					tempcol.UpdateRGB();
-				}
+            val += step;
+            sat = 0.0;
+            tempcol.v = (unsigned short) val;
+            //					tempcol.UpdateRGB();
+          }
+          pbuffer.SetCacheType(IDC_H, tempcol.h);
+        }
 				pbuffer.Display(hcomp);
                 
 				// Draws circle
@@ -226,22 +242,26 @@ LRESULT CALLBACK ColourPickerDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 				tempcol.h = (unsigned short) hue;
 				tempcol.s = (unsigned short) GetDlgItemInt(hDlg, IDC_SATURATION, NULL, false);
 				tempcol.v = (unsigned short) val;
+        
+        if(pbuffer.IsReCreate(IDC_S, tempcol.s))
+        {
+          for (int y=255; y>0; y--)
+          {
+            for (int x=0; x<255; x++)
+            {
+              tempcol.UpdateRGB();
+              pbuffer.SetPixel(x, y, RGB(tempcol.r, tempcol.g, tempcol.b));
+              hue += step2;
+              tempcol.h = (unsigned short) hue;
+              //						tempcol.UpdateRGB();
+            }
 
-				for (int y=255; y>0; y--)
-				{
-					for (int x=0; x<255; x++)
-					{
-						tempcol.UpdateRGB();
-						pbuffer.SetPixel(x, y, RGB(tempcol.r, tempcol.g, tempcol.b));
-						hue += step2;
-						tempcol.h = (unsigned short) hue;
-//						tempcol.UpdateRGB();
-					}
-
-					val += step;
-					hue = 0.0;
-					tempcol.v = (unsigned short) val;
-				}
+            val += step;
+            hue = 0.0;
+            tempcol.v = (unsigned short) val;
+          }
+          pbuffer.SetCacheType(IDC_S, tempcol.s);
+        }
 				pbuffer.Display(hcomp);
                 
 				// Draws circle
@@ -269,22 +289,26 @@ LRESULT CALLBACK ColourPickerDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 				tempcol.h = (unsigned short) hue;
 				tempcol.s = (unsigned short) sat;
 				tempcol.v = (unsigned short) GetDlgItemInt(hDlg, IDC_VALUE, NULL, false);
+        
+        if(pbuffer.IsReCreate(IDC_V, tempcol.v))
+        {
+          for (int y=255; y>0; y--)
+          {
+            for (int x=0; x<255; x++)
+            {
+              tempcol.UpdateRGB();
+              pbuffer.SetPixel(x, y, RGB(tempcol.r, tempcol.g, tempcol.b));
+              hue += step2;
+              tempcol.h = (unsigned short) hue;
+              //						tempcol.UpdateRGB();
+            }
 
-				for (int y=255; y>0; y--)
-				{
-					for (int x=0; x<255; x++)
-					{
-						tempcol.UpdateRGB();
-						pbuffer.SetPixel(x, y, RGB(tempcol.r, tempcol.g, tempcol.b));
-						hue += step2;
-						tempcol.h = (unsigned short) hue;
-//						tempcol.UpdateRGB();
-					}
-
-					sat += step;
-					hue = 0.0;
-					tempcol.s = (unsigned short) sat;
-				}
+            sat += step;
+            hue = 0.0;
+            tempcol.s = (unsigned short) sat;
+          }
+          pbuffer.SetCacheType(IDC_V, tempcol.v);
+        }
 				pbuffer.Display(hcomp);
                 
 				// Draws circle
@@ -321,75 +345,74 @@ LRESULT CALLBACK ColourPickerDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 			
 			// Check who is selected.
 			// RED
-			if (IsDlgButtonChecked(hDlg, IDC_R) == BST_CHECKED)
-				{
-				for (int r=255; r>0; r--)
-					{
-					int g = GetDlgItemInt(hDlg, IDC_GREEN, NULL, false);
-					int b = GetDlgItemInt(hDlg, IDC_BLUE, NULL, false);
-					
-					for (int x=6; x<rect.right-6; x++)
-						SetPixel(hcomp, x, r, RGB(255-r, g, b));
-					}
+      if (IsDlgButtonChecked(hDlg, IDC_R) == BST_CHECKED)
+      {
+        int g = GetDlgItemInt(hDlg, IDC_GREEN, NULL, false);
+        int b = GetDlgItemInt(hDlg, IDC_BLUE, NULL, false);
+        for (int r=255; r>0; r--)
+        {
 
-				// Draws arrows
-				pen = CreatePen(PS_SOLID, 1, RGB(0,0,0));
-				SelectObject(hcomp, pen);
-				MoveToEx(hcomp, 0, 255-(red-5), NULL);
-                LineTo(hcomp, 0, 255-(red+5));
-				LineTo(hcomp, 5, 255-(red));
-				LineTo(hcomp, 0, 255-(red-5));
-				MoveToEx(hcomp, rect.right-1, 255-(red-5), NULL);
-				LineTo(hcomp, rect.right-1, 255-(red+5));
-				LineTo(hcomp, rect.right-6, 255-(red));
-				LineTo(hcomp, rect.right-1, 255-(red-5));
-				}
-			// GREEN
-			else if (IsDlgButtonChecked(hDlg, IDC_G) == BST_CHECKED)
-				{
-				for (int g=255; g>0; g--)
-					{
-					int r = GetDlgItemInt(hDlg, IDC_RED, NULL, false);
-					int b = GetDlgItemInt(hDlg, IDC_BLUE, NULL, false);
+          for (int x=6; x<rect.right-6; x++)
+            SetPixel(hcomp, x, r, RGB(255-r, g, b));
+        }
 
-					for (int x=6; x<rect.right-6; x++)
-						SetPixel(hcomp, x, g, RGB(r, 255-g, b));
-					}
+        // Draws arrows
+        pen = CreatePen(PS_SOLID, 1, RGB(0,0,0));
+        SelectObject(hcomp, pen);
+        MoveToEx(hcomp, 0, 255-(red-5), NULL);
+        LineTo(hcomp, 0, 255-(red+5));
+        LineTo(hcomp, 5, 255-(red));
+        LineTo(hcomp, 0, 255-(red-5));
+        MoveToEx(hcomp, rect.right-1, 255-(red-5), NULL);
+        LineTo(hcomp, rect.right-1, 255-(red+5));
+        LineTo(hcomp, rect.right-6, 255-(red));
+        LineTo(hcomp, rect.right-1, 255-(red-5));
+      }
+      // GREEN
+      else if (IsDlgButtonChecked(hDlg, IDC_G) == BST_CHECKED)
+      {
+        int r = GetDlgItemInt(hDlg, IDC_RED, NULL, false);
+        int b = GetDlgItemInt(hDlg, IDC_BLUE, NULL, false);
+        for (int g=255; g>0; g--)
+        {
 
-				pen = CreatePen(PS_SOLID, 1, RGB(0,0,0));
-				SelectObject(hcomp, pen);
-				MoveToEx(hcomp, 0, 255-(green-5), NULL);
-                LineTo(hcomp, 0, 255-(green+5));
-				LineTo(hcomp, 5, 255-(green));
-				LineTo(hcomp, 0, 255-(green-5));
-				MoveToEx(hcomp, rect.right-1, 255-(green-5), NULL);
-				LineTo(hcomp, rect.right-1, 255-(green+5));
-				LineTo(hcomp, rect.right-6, 255-(green));
-				LineTo(hcomp, rect.right-1, 255-(green-5));
-				}
+          for (int x=6; x<rect.right-6; x++)
+            SetPixel(hcomp, x, g, RGB(r, 255-g, b));
+        }
+
+        pen = CreatePen(PS_SOLID, 1, RGB(0,0,0));
+        SelectObject(hcomp, pen);
+        MoveToEx(hcomp, 0, 255-(green-5), NULL);
+        LineTo(hcomp, 0, 255-(green+5));
+        LineTo(hcomp, 5, 255-(green));
+        LineTo(hcomp, 0, 255-(green-5));
+        MoveToEx(hcomp, rect.right-1, 255-(green-5), NULL);
+        LineTo(hcomp, rect.right-1, 255-(green+5));
+        LineTo(hcomp, rect.right-6, 255-(green));
+        LineTo(hcomp, rect.right-1, 255-(green-5));
+      }
             // BLUE
-			else if (IsDlgButtonChecked(hDlg, IDC_B) == BST_CHECKED)
-				{
-				for (int b=255; b>0; b--)
-					{
-					int g = GetDlgItemInt(hDlg, IDC_GREEN, NULL, false);
-					int r = GetDlgItemInt(hDlg, IDC_RED, NULL, false);
+      else if (IsDlgButtonChecked(hDlg, IDC_B) == BST_CHECKED)
+      {
+        int g = GetDlgItemInt(hDlg, IDC_GREEN, NULL, false);
+        int r = GetDlgItemInt(hDlg, IDC_RED, NULL, false);
+        for (int b=255; b>0; b--)
+        {
+          for (int x=6; x<rect.right-6; x++)
+            SetPixel(hcomp, x, b, RGB(r, g, 255-b));
+        }
 
-					for (int x=6; x<rect.right-6; x++)
-						SetPixel(hcomp, x, b, RGB(r, g, 255-b));
-					}
-
-				pen = CreatePen(PS_SOLID, 1, RGB(0,0,0));
-				SelectObject(hcomp, pen);
-				MoveToEx(hcomp, 0, 255-(blue-5), NULL);
-                LineTo(hcomp, 0, 255-(blue+5));
-				LineTo(hcomp, 5, 255-(blue));
-				LineTo(hcomp, 0, 255-(blue-5));
-				MoveToEx(hcomp, rect.right-1, 255-(blue-5), NULL);
-				LineTo(hcomp, rect.right-1, 255-(blue+5));
-				LineTo(hcomp, rect.right-6, 255-(blue));
-				LineTo(hcomp, rect.right-1, 255-(blue-5));
-				}
+        pen = CreatePen(PS_SOLID, 1, RGB(0,0,0));
+        SelectObject(hcomp, pen);
+        MoveToEx(hcomp, 0, 255-(blue-5), NULL);
+        LineTo(hcomp, 0, 255-(blue+5));
+        LineTo(hcomp, 5, 255-(blue));
+        LineTo(hcomp, 0, 255-(blue-5));
+        MoveToEx(hcomp, rect.right-1, 255-(blue-5), NULL);
+        LineTo(hcomp, rect.right-1, 255-(blue+5));
+        LineTo(hcomp, rect.right-6, 255-(blue));
+        LineTo(hcomp, rect.right-1, 255-(blue-5));
+      }
 			// HUE
 			else if (IsDlgButtonChecked(hDlg, IDC_H) == BST_CHECKED)
 				{
