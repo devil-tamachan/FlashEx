@@ -101,6 +101,7 @@ LRESULT CALLBACK ColourPickerDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 			}
 		break;
 
+    case WM_DRAWITEM:
 		case WM_PAINT:
 			{
 			HWND hWndColor, hWndColor2, hWndAlpha;
