@@ -13,7 +13,10 @@
 
 //--------------------------------------------------------------------------
 // main program
-int _tmain(int argc, _TCHAR* argv[])
+int APIENTRY _tWinMain(HINSTANCE hInstance,
+                     HINSTANCE hPrevInstance,
+                     LPTSTR lpCmdLine,
+                     int nCmdShow)
 {
 
   // get the full path of ropguarddll.dll
@@ -63,16 +66,17 @@ int _tmain(int argc, _TCHAR* argv[])
     return 0;
   }
 
-  char *pCmdline = (char *)malloc(5000);
+  int argc=0;
+  LPWSTR *argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+  wchar_t *pCmdline = (wchar_t *)malloc(5000);
   pCmdline[0] = NULL;
   for(int i=0; i<argc; i++)
   {
-    strcat(pCmdline, i==0?"Flash4.exe":argv[i]);
-    strcat(pCmdline, " ");
+    wcscat(pCmdline, i==0?L"Flash4.exe":argv[i]);
+    wcscat(pCmdline, L" ");
   }
-  OutputDebugString(pCmdline);
 
-  CreateProcessWithDll(pCmdline, dllpath, true);
+  CreateProcessWithDll(CW2A(pCmdline), dllpath, true);
 
   free(pCmdline);
 
